@@ -15,6 +15,7 @@ class _HomeState extends State<Home> {
   String? clockInTime;
   String? clockOutTime;
   bool isClockedIn = false; // Track clock-in status
+  int _selectedIndex = 0; // Track the current index of the bottom navigation
 
   void toggleClock() {
     final now = DateTime.now();
@@ -52,6 +53,12 @@ class _HomeState extends State<Home> {
   void dispose() {
     _timer?.cancel(); // Cancel the timer when the widget is disposed
     super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -109,14 +116,11 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 10),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors
-                        .transparent, // The inside of the container remains transparent (or any color you want)
-                    borderRadius:
-                        BorderRadius.circular(20), // Round the corners
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: const Color.fromARGB(
-                          185, 207, 207, 207), // Border color
-                      width: 2, // Border width
+                      color: const Color.fromARGB(185, 207, 207, 207),
+                      width: 2,
                     ),
                   ),
                   child: Column(
@@ -132,10 +136,8 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment
-                              .center, // Align texts and icon vertically in the middle
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // Row to hold the two text widgets close together
                             Row(
                               children: [
                                 const Text(
@@ -143,9 +145,7 @@ class _HomeState extends State<Home> {
                                   style:
                                       TextStyle(letterSpacing: 2, fontSize: 20),
                                 ),
-                                const SizedBox(
-                                    width:
-                                        5), // Adjust the spacing between the two Text widgets
+                                const SizedBox(width: 5),
                                 Text(
                                   '${data['time'] ?? _getTimeString()}',
                                   style: GoogleFonts.oswald(
@@ -155,7 +155,6 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            // The IconButton stays at the end of the row
                             IconButton(
                               onPressed: () async {
                                 dynamic result = await Navigator.pushNamed(
@@ -174,91 +173,62 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-
                       // CLOCK IN | CLOCK OUT
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                // Background color
-                                borderRadius:
-                                    BorderRadius.circular(5), // Rounded edges
-                              ),
-                              child: Column(
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(width: 10),
-                                      Text(
-                                        'Clock In',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                            fontFamily: 'Courier',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    clockInTime != null ? '$clockInTime' : '--',
-                                    style: const TextStyle(
-                                      fontSize: 20,
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Clock In',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromARGB(255, 0, 0, 0),
                                       fontFamily: 'Courier',
-                                    ),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  clockInTime != null ? '$clockInTime' : '--',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Courier',
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 10),
                           Icon(
                             Icons.access_time_filled,
                             color: isClockedIn ? Colors.green : Colors.red,
                             size: 90,
                           ),
-                          //clock out
                           Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(5), // Rounded edges
-                              ),
-                              child: Column(
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(width: 10),
-                                      Text(
-                                        'Clock Out',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Courier',
-                                        ),
-                                      ),
-                                    ],
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Clock Out',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Courier',
                                   ),
-                                  Text(
-                                    clockOutTime != null
-                                        ? ' $clockOutTime'
-                                        : ' --',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Courier',
-                                    ),
+                                ),
+                                Text(
+                                  clockOutTime != null
+                                      ? ' $clockOutTime'
+                                      : ' --',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Courier',
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 5),
-                      //CLOCK BUTTON
+                      // CLOCK BUTTON
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -278,7 +248,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       const SizedBox(height: 5),
-                      //TIMECARD BUTTON
+                      // TIMECARD BUTTON
                       Container(
                         padding: EdgeInsets.all(5),
                         decoration: const BoxDecoration(
@@ -310,10 +280,8 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Icon(Icons.gavel,
-                            size: 30,
-                            color: Color.fromARGB(255, 17, 76,
-                                124)), // Government icon (gavel or another icon of your choice)
-                        SizedBox(width: 10), // Add space between icon and text
+                            size: 30, color: Color.fromARGB(255, 17, 76, 124)),
+                        SizedBox(width: 10),
                         Text(
                           'Government',
                           style: TextStyle(
@@ -327,6 +295,37 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings_outlined,
+              color: Colors.black, // Dark color for the icon
+            ),
+            label: 'Self Service',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/logo.png',
+              width: 27,
+              height: 27,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_outline,
+              color: Colors.black, // Dark color for the icon
+            ),
+            label: 'Profile Settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color.fromARGB(
+            255, 17, 180, 221), // Dark color for selected item
+        unselectedItemColor: Colors.black, // Color for unselected items
+        onTap: _onItemTapped,
       ),
     );
   }
