@@ -247,17 +247,15 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       SizedBox(height: 10),
-                      Expanded(
-                        child: Container(
-                          child: ElevatedButton(
-                            onPressed: toggleClock,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: isClockedIn
-                                  ? Colors.red
-                                  : Colors.green, // Button color
-                            ),
-                            child: Text(isClockedIn ? 'Clock Out' : 'Clock In'),
+                      Container(
+                        child: ElevatedButton(
+                          onPressed: toggleClock,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: isClockedIn
+                                ? Colors.red
+                                : Colors.green, // Button color
                           ),
+                          child: Text(isClockedIn ? 'Clock Out' : 'Clock In'),
                         ),
                       ),
                     ],
