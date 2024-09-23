@@ -71,8 +71,8 @@ class _HomeState extends State<Home> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.lightBlueAccent,
                 Colors.white,
+                Colors.lightBlueAccent,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
                       Container(
                         padding: EdgeInsets.all(5),
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(143, 207, 207, 207),
+                          color: Color.fromARGB(255, 236, 143, 76),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -138,18 +138,18 @@ class _HomeState extends State<Home> {
                             // Row to hold the two text widgets close together
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Today:',
                                   style:
                                       TextStyle(letterSpacing: 2, fontSize: 20),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                     width:
                                         5), // Adjust the spacing between the two Text widgets
                                 Text(
                                   '${data['time'] ?? _getTimeString()}',
                                   style: GoogleFonts.oswald(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                         letterSpacing: .5, fontSize: 25),
                                   ),
                                 ),
@@ -180,33 +180,24 @@ class _HomeState extends State<Home> {
                         children: [
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                color: isClockedIn
-                                    ? Colors.green
-                                    : const Color.fromARGB(
-                                        110, 76, 175, 79), // Background color
+                                // Background color
                                 borderRadius:
                                     BorderRadius.circular(5), // Rounded edges
                               ),
                               child: Column(
                                 children: [
                                   const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.access_time,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        size: 30,
-                                      ),
                                       SizedBox(width: 10),
                                       Text(
                                         'Clock In',
                                         style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontFamily: 'Courier',
-                                        ),
+                                            fontSize: 18,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            fontFamily: 'Courier',
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -214,7 +205,6 @@ class _HomeState extends State<Home> {
                                     clockInTime != null ? '$clockInTime' : '--',
                                     style: const TextStyle(
                                       fontSize: 20,
-                                      color: Colors.white,
                                       fontFamily: 'Courier',
                                     ),
                                   ),
@@ -223,33 +213,30 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           SizedBox(height: 10),
+                          Icon(
+                            Icons.access_time_filled,
+                            color: isClockedIn ? Colors.green : Colors.red,
+                            size: 90,
+                          ),
                           //clock out
                           Expanded(
                             child: Container(
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                color: isClockedIn
-                                    ? Color.fromARGB(139, 244, 67, 54)
-                                    : Colors.red, // Background color
                                 borderRadius:
                                     BorderRadius.circular(5), // Rounded edges
                               ),
                               child: Column(
                                 children: [
                                   const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.access_time,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        size: 30,
-                                      ),
                                       SizedBox(width: 10),
                                       Text(
                                         'Clock Out',
                                         style: TextStyle(
-                                          fontSize: 19,
-                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
                                           fontFamily: 'Courier',
                                         ),
                                       ),
@@ -261,7 +248,6 @@ class _HomeState extends State<Home> {
                                         : ' --',
                                     style: const TextStyle(
                                       fontSize: 20,
-                                      color: Colors.white,
                                       fontFamily: 'Courier',
                                     ),
                                   ),
@@ -283,7 +269,9 @@ class _HomeState extends State<Home> {
                                 isClockedIn ? 'Clock Out' : 'Clock In',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                    color: isClockedIn
+                                        ? Colors.green
+                                        : Colors.red),
                               ),
                             ),
                           ),
@@ -294,7 +282,7 @@ class _HomeState extends State<Home> {
                       Container(
                         padding: EdgeInsets.all(5),
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(143, 207, 207, 207),
+                          color: Color.fromARGB(255, 236, 143, 76),
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20),
@@ -306,7 +294,7 @@ class _HomeState extends State<Home> {
                             Expanded(
                               child: TextButton(
                                   onPressed: () {},
-                                  child: Text('Time Card',
+                                  child: const Text('Time Card',
                                       style: TextStyle(color: Colors.black))),
                             ),
                           ],
