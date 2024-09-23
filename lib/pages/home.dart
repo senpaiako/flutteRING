@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async'; // Needed for Timer
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -107,12 +108,23 @@ class _HomeState extends State<Home> {
                 ),
                 const SizedBox(height: 10),
                 Container(
+                  decoration: BoxDecoration(
+                    color: Colors
+                        .transparent, // The inside of the container remains transparent (or any color you want)
+                    borderRadius:
+                        BorderRadius.circular(20), // Round the corners
+                    border: Border.all(
+                      color: const Color.fromARGB(
+                          185, 207, 207, 207), // Border color
+                      width: 2, // Border width
+                    ),
+                  ),
                   child: Column(
                     children: [
                       Container(
                         padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(143, 158, 158, 158),
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(143, 207, 207, 207),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -120,15 +132,30 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment
+                              .center, // Align texts and icon vertically in the middle
                           children: [
-                            Text(
-                              'Today: ${data['time'] ?? _getTimeString()}',
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontFamily: 'Courier',
-                              ),
+                            // Row to hold the two text widgets close together
+                            Row(
+                              children: [
+                                Text(
+                                  'Today:',
+                                  style:
+                                      TextStyle(letterSpacing: 2, fontSize: 20),
+                                ),
+                                SizedBox(
+                                    width:
+                                        5), // Adjust the spacing between the two Text widgets
+                                Text(
+                                  '${data['time'] ?? _getTimeString()}',
+                                  style: GoogleFonts.oswald(
+                                    textStyle: TextStyle(
+                                        letterSpacing: .5, fontSize: 25),
+                                  ),
+                                ),
+                              ],
                             ),
+                            // The IconButton stays at the end of the row
                             IconButton(
                               onPressed: () async {
                                 dynamic result = await Navigator.pushNamed(
@@ -142,9 +169,7 @@ class _HomeState extends State<Home> {
                                   };
                                 });
                               },
-                              icon: Icon(
-                                Icons.location_on,
-                              ),
+                              icon: Icon(Icons.location_on),
                             )
                           ],
                         ),
@@ -246,20 +271,69 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
-                      Container(
-                        child: ElevatedButton(
-                          onPressed: toggleClock,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: isClockedIn
-                                ? Colors.red
-                                : Colors.green, // Button color
+                      const SizedBox(height: 5),
+                      //CLOCK BUTTON
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: toggleClock,
+                              child: Text(
+                                isClockedIn ? 'Clock Out' : 'Clock In',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ),
                           ),
-                          child: Text(isClockedIn ? 'Clock Out' : 'Clock In'),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      //TIMECARD BUTTON
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(143, 207, 207, 207),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: Text('Time Card',
+                                      style: TextStyle(color: Colors.black))),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 20),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.gavel,
+                            size: 30,
+                            color: Color.fromARGB(255, 17, 76,
+                                124)), // Government icon (gavel or another icon of your choice)
+                        SizedBox(width: 10), // Add space between icon and text
+                        Text(
+                          'Government',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
                 )
               ],
             ),
