@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async'; // Needed for Timer
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newnew/services/card.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,6 +17,38 @@ class _HomeState extends State<Home> {
   String? clockOutTime;
   bool isClockedIn = false; // Track clock-in status
   int _selectedIndex = 0; // Track the current index of the bottom navigation
+
+  List<displayCard> displays = [
+    displayCard(visual: 'sss.png', title: 'SSS'),
+    displayCard(visual: 'tax.png', title: 'Tax'),
+    displayCard(visual: 'philhealth.png', title: 'Philhealth'),
+  ];
+
+  Widget cardTemplate(display) {
+    return Card(
+      margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            Image(
+              image: AssetImage('assets/${display.visual}'),
+              width: 50,
+              height: 50,
+            ),
+            SizedBox(height: 3),
+            FittedBox(
+              child: Text(
+                display.title,
+                style: TextStyle(fontSize: 20), // Base font size
+                textAlign: TextAlign.center, // Center align the text
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   void toggleClock() {
     final now = DateTime.now();
@@ -267,10 +300,11 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: 20),
-                const Column(
+                //GOVERNMENT
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Icon(Icons.gavel, size: 30, color: Colors.blue),
                         SizedBox(width: 10),
@@ -281,6 +315,13 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
+                    Row(
+                      children: displays
+                          .map((display) => Expanded(
+                                child: cardTemplate(display),
+                              ))
+                          .toList(),
+                    ),
                   ],
                 )
               ],
@@ -289,7 +330,6 @@ class _HomeState extends State<Home> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue,
         type: BottomNavigationBarType
             .shifting, // Ensures labels are always visible
         items: <BottomNavigationBarItem>[
