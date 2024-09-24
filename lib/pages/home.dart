@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async'; // Needed for Timer
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newnew/services/card.dart';
+import 'package:iconsax/iconsax.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -109,12 +110,12 @@ class _HomeState extends State<Home> {
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(5, 40, 5, 0),
+                child: Row(
                   children: [
                     CircleAvatar(
                       radius: 30,
@@ -137,11 +138,14 @@ class _HomeState extends State<Home> {
                     )
                   ],
                 ),
-                const SizedBox(height: 10),
-                Container(
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
                   decoration: BoxDecoration(
                     color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: const Color.fromARGB(185, 207, 207, 207),
                       width: 2,
@@ -154,8 +158,8 @@ class _HomeState extends State<Home> {
                         decoration: const BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
                           ),
                         ),
                         child: Row(
@@ -222,7 +226,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Icon(
-                            Icons.access_time_filled,
+                            Icons.access_time_rounded,
                             color: isClockedIn ? Colors.green : Colors.red,
                             size: 90,
                           ),
@@ -273,15 +277,15 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 10),
                       // TIMECARD BUTTON
                       Container(
                         padding: EdgeInsets.all(5),
                         decoration: const BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
                           ),
                         ),
                         child: Row(
@@ -290,7 +294,7 @@ class _HomeState extends State<Home> {
                             Expanded(
                               child: TextButton(
                                   onPressed: () {},
-                                  child: const Text('Time Card',
+                                  child: const Text('Timecard',
                                       style: TextStyle(color: Colors.black))),
                             ),
                           ],
@@ -299,77 +303,71 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                //GOVERNMENT
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              SizedBox(height: 10),
+              Container(
+                color: const Color.fromARGB(
+                    137, 158, 158, 158), // Set your desired color here
+                height: 4, // Set the height of the colored box
+                child: SizedBox.expand(), // This expands to fill the container
+              ),
+              SizedBox(height: 10),
+              //ANNOUNCEMENT
+              Container(
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: const Color.fromARGB(185, 207, 207, 207),
+                    width: 2,
+                  ),
+                ),
+                child: Column(
                   children: [
-                    const Row(
-                      children: [
-                        Icon(Icons.gavel, size: 30, color: Colors.blue),
-                        SizedBox(width: 10),
-                        Text(
-                          'Government',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Iconsax.notification,
+                            color: Colors.blue,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Announcement",
+                            style: TextStyle(letterSpacing: 3, fontSize: 20),
+                          )
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: displays
-                          .map((display) => Expanded(
-                                child: cardTemplate(display),
-                              ))
-                          .toList(),
+                    Container(
+                      color: const Color.fromARGB(
+                          137, 158, 158, 158), // Set your desired color here
+                      height: 1, // Set the height of the colored box
+                      child: SizedBox
+                          .expand(), // This expands to fill the container
+                    ),
+                    //ANNOUNCEMENT CONTENT
+                    Container(
+                      height: 30,
+                      child: SizedBox.expand(),
                     ),
                   ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType
-            .shifting, // Ensures labels are always visible
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings_outlined,
-              // Let Flutter handle icon colors based on selected/unselected state
-            ),
-            label: 'Self Service',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(
-                  5.0), // Adds padding for better visual balance
-              child: Image.asset(
-                'assets/logo.png',
-                width: 35, // Increase size for better prominence
-                height: 35,
+                ),
               ),
-            ),
-            label: 'Home', // Optional: Hide label for the center logo
+              SizedBox(height: 10),
+              Container(
+                color: const Color.fromARGB(
+                    137, 158, 158, 158), // Set your desired color here
+                height: 4, // Set the height of the colored box
+                child: SizedBox.expand(), // This expands to fill the container
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline,
-              // Icon color managed by selectedItemColor/unselectedItemColor
-            ),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue, // Color for the selected item
-        unselectedItemColor: Colors.black, // Color for unselected items
-        selectedLabelStyle: TextStyle(
-          fontWeight: FontWeight.bold, // Make the selected label bold
         ),
-        unselectedLabelStyle: TextStyle(
-          fontWeight: FontWeight.normal, // Unselected labels less prominent
-        ),
-        onTap: _onItemTapped,
       ),
     );
   }
