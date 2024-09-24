@@ -44,7 +44,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                 onTap: () {
                   updateTime(index);
 
-                  print(locations[index].location);
+                  print(locations[index].url);
                 },
                 leading: CircleAvatar(
                   backgroundImage:

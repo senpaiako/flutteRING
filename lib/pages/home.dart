@@ -72,19 +72,10 @@ class _HomeState extends State<Home> {
     Color bgColor = data['isDayTime'] ? Colors.blue[300]! : Colors.indigo[900]!;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.white,
-                Colors.lightBlueAccent,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
+          decoration: const BoxDecoration(),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
             child: Column(
@@ -128,7 +119,7 @@ class _HomeState extends State<Home> {
                       Container(
                         padding: EdgeInsets.all(5),
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 236, 143, 76),
+                          color: Colors.blue,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -234,14 +225,16 @@ class _HomeState extends State<Home> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey[200]),
                               onPressed: toggleClock,
                               child: Text(
                                 isClockedIn ? 'Clock Out' : 'Clock In',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: isClockedIn
-                                        ? Colors.green
-                                        : Colors.red),
+                                        ? Colors.red
+                                        : Colors.green),
                               ),
                             ),
                           ),
@@ -252,7 +245,7 @@ class _HomeState extends State<Home> {
                       Container(
                         padding: EdgeInsets.all(5),
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 236, 143, 76),
+                          color: Colors.blue,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20),
@@ -279,8 +272,7 @@ class _HomeState extends State<Home> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.gavel,
-                            size: 30, color: Color.fromARGB(255, 17, 76, 124)),
+                        Icon(Icons.gavel, size: 30, color: Colors.blue),
                         SizedBox(width: 10),
                         Text(
                           'Government',
@@ -297,34 +289,46 @@ class _HomeState extends State<Home> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blue,
+        type: BottomNavigationBarType
+            .shifting, // Ensures labels are always visible
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.settings_outlined,
-              color: Colors.black, // Dark color for the icon
+              // Let Flutter handle icon colors based on selected/unselected state
             ),
             label: 'Self Service',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/logo.png',
-              width: 27,
-              height: 27,
+            icon: Container(
+              padding: const EdgeInsets.all(
+                  5.0), // Adds padding for better visual balance
+              child: Image.asset(
+                'assets/logo.png',
+                width: 35, // Increase size for better prominence
+                height: 35,
+              ),
             ),
-            label: 'Home',
+            label: 'Home', // Optional: Hide label for the center logo
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
-              color: Colors.black, // Dark color for the icon
+              // Icon color managed by selectedItemColor/unselectedItemColor
             ),
-            label: 'Profile Settings',
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(
-            255, 17, 180, 221), // Dark color for selected item
+        selectedItemColor: Colors.blue, // Color for the selected item
         unselectedItemColor: Colors.black, // Color for unselected items
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold, // Make the selected label bold
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.normal, // Unselected labels less prominent
+        ),
         onTap: _onItemTapped,
       ),
     );
